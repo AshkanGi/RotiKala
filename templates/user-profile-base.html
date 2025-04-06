@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>صفحه اصلی</title>
+    <title>پیشخوان</title>
 
     <link href="{% static 'main/assets/css/fonts.css' %}" rel="stylesheet" />
     <link href="{% static 'main/assets/css/dependencies/swiper.min.css' %}" rel="stylesheet" />
@@ -1609,16 +1609,9 @@
                   </div>
                 </div>
               </div>
-
               <!-- Bottom Section -->
-              <div
-                class="absolute left-0 right-0 top-full z-20 bg-muted shadow-sm transition-transform duration-300"
-                data-onscrollclass="-translate-y-full"
-              >
-                <nav
-                  id="header-desktop-navbar"
-                  class="container relative flex max-w-[1680px] items-center gap-x-2"
-                >
+              <div class="absolute left-0 right-0 top-full z-20 bg-muted shadow-sm transition-transform duration-300" data-onscrollclass="-translate-y-full">
+                <nav id="header-desktop-navbar" class="container relative flex max-w-[1680px] items-center gap-x-2">
                   <ul class="group z-10" id="desktopMegamenuWrapper">
                     <div class="relative flex cursor-pointer items-center gap-x-2 pb-2">
                       <div>
@@ -1628,7 +1621,6 @@
                       </div>
                       <div>دسته‌ بندی‌ ها</div>
                     </div>
-
                     <!-- Mega menu -->
                     <div class="absolute top-full w-full max-w-[1000px]">
                       <div
@@ -3214,7 +3206,6 @@
                       </div>
                     </div>
                   </ul>
-
                   <ul>
                     <a class="group" href="{% url 'core:why' %}">
                       <div class="p-2 pt-0">چرا روتی کالا</div>
@@ -3226,48 +3217,34 @@
                     </a>
                   </ul>
                   <ul class="group relative z-10" id="header-desktop-indicator">
-                    <div
-                      class="flex cursor-pointer items-center gap-x-2 p-2 pt-0"
-                    >
+                    <div class="flex cursor-pointer items-center gap-x-2 p-2 pt-0">
                       سایر
                       <span class="text-primary">...</span>
                     </div>
-                    <div
-                      class="absolute right-0 top-full hidden w-44 overflow-hidden rounded-b-lg bg-muted group-hover:block"
-                    >
+                    <div class="absolute right-0 top-full hidden w-44 overflow-hidden rounded-b-lg bg-muted group-hover:block">
                       <ul class="space-y-1 p-2">
                         <li>
-                          <a
-                            class="hover:dark: flex rounded-lg px-4 py-3 hover:text-primary"
-                            href="{% url 'core:contact' %}"
-                          >
+                          <a class="hover:dark: flex rounded-lg px-4 py-3 hover:text-primary" href="{% url 'core:contact' %}">
                             تماس با ما
                           </a>
                         </li>
                         <li>
-                          <a
-                            class="hover:dark: flex rounded-lg px-4 py-3 hover:text-primary"
-                            href="{% url 'core:about' %}"
-                          >
+                          <a class="hover:dark: flex rounded-lg px-4 py-3 hover:text-primary" href="{% url 'core:about' %}">
                             درباره ما
                           </a>
                         </li>
                         <li>
-                          <a
-                            class="hover:dark: flex rounded-lg px-4 py-3 hover:text-primary"
-                            href="{% url 'core:faq' %}"
-                          >
+                          <a class="hover:dark: flex rounded-lg px-4 py-3 hover:text-primary" href="{% url 'core:faq' %}">
                             سوالات متداول
                           </a>
                         </li>
                       </ul>
                     </div>
                   </ul>
-
                   <div
                     id="header-desktop-navbar-indicator"
-                    class="absolute bottom-0 h-[0.15625rem] z-0 rounded-2xl end-0 transition-all duration-[350ms] w-0"
-                  ></div>
+                    class="absolute bottom-0 h-[0.15625rem] z-0 rounded-2xl end-0 transition-all duration-[350ms] w-0">
+                  </div>
                 </nav>
               </div>
             </div>
@@ -3275,251 +3252,148 @@
         </div>
         <div class="fixed inset-0 z-20 hidden bg-black/40 backdrop-blur-md /40" id="header-overlay"></div>
       </header>
-      <!-- Color Effect -->
-      {% block contact %}
-      	
-      {% endblock %}
-      <footer class="relative border-t bg-muted">
-        <!-- Footer Logo -->
-        <div class="absolute inset-x-0 -top-3 flex items-center justify-center">
-          <div class="relative flex h-10 w-14 justify-center">
-            <div
-              class="absolute inset-0 -top-[2px] h-full w-full rounded-full bg-muted blur-[6px]"
-            ></div>
-
-            <svg
-              class="relative h-5 w-5 text-gray-200"
-              xmlns="http://www.w3.org/2000/svg"
-              width="135"
-              height="90"
-              viewBox="0 0 14 14"
-            >
-              <g
-                fill="none"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <circle cx="7" cy="7" r="6.5" />
-                <path
-                  d="M.5 7h13m-4 0A11.22 11.22 0 0 1 7 13.5A11.22 11.22 0 0 1 4.5 7A11.22 11.22 0 0 1 7 .5A11.22 11.22 0 0 1 9.5 7Z"
-                />
-              </g>
-            </svg>
-          </div>
-        </div>
-
-        <!-- content -->
+      <main class="flex-grow bg-background pb-14 pt-36 xs:pt-36">
         <div class="container">
-          <!-- Contact - Go to Top -->
-          <div
-            class="mt-10 flex flex-col items-center justify-between gap-y-4 md:flex-row"
-          >
-            <div
-              class="flex flex-col items-center gap-x-4 gap-y-4 text-sm text-text/60 md:flex-row"
-            >
-              <p>تلفن پشتیبانی 0000000 - 021</p>
-              <span
-                class="hidden h-4 w-px rounded-full bg-border md:block"
-              ></span>
-              <p>۷ روز هفته، ۲۴ ساعته پاسخگوی شما هستیم</p>
-            </div>
-            <div class="order-first flex md:order-last">
-              <button
-                class="inline-flex items-center gap-x-2 rounded-lg border p-2 text-sm"
-                id="scroll-top-button-footer"
-                type="button"
-              >
-                <span>برگشت به بالا</span>
-                <span aria-hidden="true">
-                  <svg class="h-5 w-5 lg:h-6 lg:w-6">
-                    <use xlink:href="#chevron-up" />
-                  </svg>
-                </span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Subscribe - Social Links  -->
-          <div
-            class="relative mb-10 mt-10 flex flex-col items-center justify-between gap-x-4 gap-y-8 rounded-xl bg-background px-10 py-4 shadow-base backdrop-blur-3xl md:flex-row"
-          >
-            <div>
-              <p class="text-sm text-text/60">
-                از جدیدترین تخفیف ها با خبر شوید
-              </p>
-            </div>
-            <div class="w-full flex-1 flex-grow md:max-w-lg">
-              <div
-                class="flex w-full items-center justify-between gap-x-2 rounded-lg bg-muted"
-              >
-                <label class="sr-only" for="emailInput" id="email-label"
-                  >ایمیل</label
-                >
-                <input
-                  aria-labelledby="email-label"
-                  autocomplete="off"
-                  class="w-full border-none bg-transparent px-4 py-2.5 text-right text-text/90 outline-none placeholder:text-right placeholder:text-sm placeholder:text-text/60 focus:outline-none focus:ring-0 placeholder:"
-                  dir="ltr"
-                  id="emailInput"
-                  placeholder="ایمیل شما"
-                  type="text"
-                />
-                <button class="btn-primary ml-1 w-24 py-2 text-sm">ثبت</button>
-              </div>
-            </div>
-            <div class="flex items-center justify-center gap-x-10 md:gap-x-6">
-              <div
-                class="transition-colors duration-200 hover:text-rose-600 hover:dark:text-rose-500"
-              >
-                <a aria-label="Follow us on instagram" href="#" target="_blank">
-                  <div class="sr-only">instagram link</div>
-                  <svg class="h-6 w-6">
-                    <use xlink:href="#instagram" />
-                  </svg>
-                </a>
-              </div>
-              <div class="transition-colors duration-200 hover:text-blue">
-                <a aria-label="Follow us on twitter" href="#" target="_blank">
-                  <div class="sr-only">x - twitter link</div>
-                  <svg class="h-6 w-6">
-                    <use xlink:href="#twitter" />
-                  </svg>
-                </a>
-              </div>
-              <div
-                class="transition-colors duration-200 hover:text-red-600 hover:dark:text-red-500"
-              >
-                <a aria-label="Follow us on aparat" href="#" target="_blank">
-                  <div class="sr-only">aparat link</div>
-                  <svg class="h-6 w-6">
-                    <use xlink:href="#aparat" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-12 gap-y-10">
-            <div class="col-span-12 md:col-span-6">
-              <div
-                class="grid grid-cols-12 justify-items-center md:justify-items-start"
-              >
-                <div class="col-span-6 flex flex-col gap-y-6">
-                  <p class="select-none text-lg">روتی کالا</p>
-                  <ul class="space-y-4 text-text/60">
-                    <li>
-                      <a
-                        class="py-2 hover:text-primary hover:"
-                        href="./return-terms.html"
-                      >
-                        شرایط مرجوعی
+          <div class="grid grid-cols-12 gap-4">
+            <!-- sidebar -->
+            <div class="col-span-12 lg:col-span-3">
+              <!-- Desktop sidebar -->
+              <div class="sticky top-32 hidden w-full overflow-hidden rounded-lg bg-muted shadow-base lg:block">
+                <div dir="ltr" class="max-h-[calc(90vh_-_100px)] overflow-y-auto p-4 xl:p-6">
+                  <div dir="rtl">
+                    <!-- Head -->
+                    <div class="mb-2 flex items-center justify-between border-b pb-6 dark:border-white/10">
+                      <div class="flex items-center gap-x-4">
+                        <div>
+                          {% if request.user.is_authenticated and user.image %}
+                            <img
+                              src="{{ user.image.url }}"
+                              class="h-12 w-12 rounded-full"
+                              alt=""
+                            />
+                          {% else %} 
+                            <img
+                              src="{% static 'main/assets/images/user.png' %}"
+                              class="h-12 w-12 rounded-full"
+                              alt=""
+                            />
+                          {% endif %}
+                        </div>
+                        {% if request.user.is_authenticated %}
+                        	<div class="flex flex-col">
+                            {% if user.full_name %}
+                            	<div class="line-clamp-1">{{ user.full_name }}</div>
+                            {% else %}
+                                <div class="line-clamp-1">{{ user.username }}</div>
+                            {% endif %}
+                        </div>
+                        {% else %}
+                        	<div class="flex flex-col">
+                              <div class="line-clamp-1">مهمان</div>
+                            </div>
+                        {% endif %}
+                      </div>
+                      <a href="{% url 'user_profile:edit' %}">
+                        <svg class="h-6 w-6 text-primary">
+                          <use xlink:href="#edit" />
+                        </svg>
                       </a>
-                    </li>
-                    <li>
-                      <a
-                        class="py-2 hover:text-primary hover:"
-                        href="./how-to-buy.html"
-                      >
-                        راهنمای خرید
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        class="py-2 hover:text-primary hover:"
-                        href="./rules-and-terms.html"
-                      >
-                        قوانین و مقررات
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        class="py-2 hover:text-primary hover:"
-                        href="./why-us.html"
-                      >
-                        چرا روتی کالا
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="col-span-6 flex flex-col gap-y-6">
-                  <p class="select-none text-lg">دسترسی سریع</p>
-                  <ul class="space-y-4 text-text/60">
-                    <li>
-                      <a
-                        class="py-2 hover:text-primary hover:"
-                        href="./profile-orders.html"
-                      >
-                        پیگیری سفارشات
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        class="py-2 hover:text-primary hover:"
-                        href="./contact.html"
-                      >
-                        تماس با ما
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        class="py-2 hover:text-primary hover:"
-                        href="./faq.html"
-                      >
-                        سوالات متداول
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        class="py-2 hover:text-primary hover:"
-                        href="./about.html"
-                      >
-                        درباره ما
-                      </a>
-                    </li>
-                  </ul>
+                    </div>
+                    <ul class="space-y-1">
+                      <li>
+                        <a href="{% url 'user_profile:dashboard' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}profile-menu profile-menu-active flex items-center justify-between rounded-lg px-2 py-4 xl:px-4{% else %}profile-menu flex items-center justify-between rounded-lg px-2 py-4 xl:px-4{% endif %}">
+                          <div class="flex items-center gap-x-4">
+                            <svg class="h-6 w-6">
+                              <use xlink:href="#home" />
+                            </svg>
+                            <div>پیشخوان</div>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="{% url 'user_profile:orders' %}" class="{% if request.resolver_match.url_name == 'orders' %}profile-menu profile-menu-active flex items-center justify-between rounded-lg px-2 py-4 xl:px-4{% else %}profile-menu flex items-center justify-between rounded-lg px-2 py-4 xl:px-4{% endif %}">
+                          <div class="flex items-center gap-x-4">
+                            <svg class="h-6 w-6">
+                              <use xlink:href="#order" />
+                            </svg>
+                            <div>سفارش ها</div>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="{% url 'user_profile:favorites' %}" class="{% if request.resolver_match.url_name == 'favorites' %}profile-menu profile-menu-active flex items-center justify-between rounded-lg px-2 py-4 xl:px-4{% else %}profile-menu flex items-center justify-between rounded-lg px-2 py-4 xl:px-4{% endif %}">
+                          <div class="flex items-center gap-x-4">
+                            <svg class="h-6 w-6">
+                              <use xlink:href="#heart" />
+                            </svg>
+                            <div>علاقه‌مندی ها</div>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="{% url 'user_profile:recent' %}" class="{% if request.resolver_match.url_name == 'recent' %}profile-menu profile-menu-active flex items-center justify-between rounded-lg px-2 py-4 xl:px-4{% else %}profile-menu flex items-center justify-between rounded-lg px-2 py-4 xl:px-4{% endif %}">
+                          <div class="flex items-center gap-x-4">
+                            <svg class="h-6 w-6">
+                              <use xlink:href="#recent" />
+                            </svg>
+                            <div>بازدید های اخیر</div>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="{% url 'user_profile:notification' %}" class="{% if request.resolver_match.url_name == 'notification' %}profile-menu profile-menu-active flex items-center justify-between rounded-lg px-2 py-4 xl:px-4{% else %}profile-menu flex items-center justify-between rounded-lg px-2 py-4 xl:px-4{% endif %}">
+                          <div class="flex items-center gap-x-4">
+                            <svg class="h-6 w-6">
+                              <use xlink:href="#notification" />
+                            </svg>
+                            <div>پیام ها</div>
+                          </div>
+                          <div class="flex h-6 w-6 items-center justify-center rounded-lg bg-primary text-sm font-bold text-white dark:bg-emerald-600">
+                            10
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="{% url 'user_profile:address' %}" class="{% if request.resolver_match.url_name == 'address' %}profile-menu profile-menu-active flex items-center justify-between rounded-lg px-2 py-4 xl:px-4{% else %}profile-menu flex items-center justify-between rounded-lg px-2 py-4 xl:px-4{% endif %}">
+                          <div class="flex items-center gap-x-4">
+                            <svg class="h-6 w-6">
+                              <use xlink:href="#address" />
+                            </svg>
+                            <div>آدرس ها</div>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="{% url 'user_profile:edit' %}" class="{% if request.resolver_match.url_name == 'edit' %}profile-menu profile-menu-active flex items-center justify-between rounded-lg px-2 py-4 xl:px-4{% else %}profile-menu flex items-center justify-between rounded-lg px-2 py-4 xl:px-4{% endif %}">
+                          <div class="flex items-center gap-x-4">
+                            <svg class="h-6 w-6">
+                              <use xlink:href="#user-setting" />
+                            </svg>
+                            <div>اطلاعات حساب کاربری</div>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="{% url 'account:logout' %}" class="flex items-center justify-between rounded-lg p-4 text-red-500 hover:bg-warning/10 dark:text-red-400 dark:hover:bg-red-400/10">
+                          <div class="flex items-center gap-x-2">
+                            <svg class="h-6 w-6">
+                              <use xlink:href="#exit"></use>
+                            </svg>
+                            <span> خروج </span>
+                          </div>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
-            <div
-              class="col-span-12 flex items-center justify-center gap-x-2 md:col-span-6 md:justify-end"
-            >
-              <a href="#" class="relative">
-                <img
-                  alt="namad"
-                  class="h-[130px] w-[130px] blur-sm"
-                  src="{% static 'main/assets/images/namad.png' %}"
-                />
-                <!-- Delete This -->
-                <span
-                  class="absolute inset-x-0 top-0 mx-auto w-fit rounded-lg bg-warning px-4 py-2 text-white dark:bg-red-600"
-                >
-                  تستی
-                </span>
-              </a>
-              <a href="#" class="relative">
-                <img
-                  alt="samandehi"
-                  class="h-[130px] w-[130px] blur-sm"
-                  src="{% static 'main/assets/images/samandehi.png' %}"
-                />
-                <span
-                  class="absolute inset-x-0 top-0 mx-auto w-fit rounded-lg bg-warning px-4 py-2 text-white dark:bg-red-600"
-                >
-                  تستی
-                </span>
-              </a>
-            </div>
-          </div>
-
-          <!-- Copyright -->
-          <div class="mt-4 flex items-center justify-center border-t py-4">
-            <p class="text-xs text-text/60 xs:text-sm">
-              کلیه حقوق این سایت متعلق به فروشگاه روتی کالا می‌باشد.
-            </p>
+            {% block main %}
+                
+            {% endblock %}
           </div>
         </div>
-      </footer>
+      </main>
     </div>
   </body>
 </html>
