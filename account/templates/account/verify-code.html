@@ -1,0 +1,142 @@
+{% extends 'login-base.html' %}
+{% load static %}
+{% block main %}
+	<div class="flex min-h-screen items-center justify-center bg-background">
+      <div class="container">
+        <div class="relative mx-auto max-w-[450px] rounded-xl bg-muted p-5 shadow-base md:p-10">
+          <!-- Return -->
+          <a
+            href="{% url 'account:check-username' %}"
+            class="absolute -top-3.5 -right-3.5 shadow-base hover:dark:bg-muted hover:bg-muted text-white hover:text-primary transition-all duration-200 hover: w-10 h-10 flex items-center justify-center rounded-full bg-primary"
+          >
+            <svg class="w-8 h-8">
+              <use xlink:href="#chevron-right" />
+            </svg>
+          </a>
+          <!-- Logo -->
+          <a href="{% url 'core:home' %}">
+            <img
+              src="{% static 'main/assets/images/logo.svg' %}"
+              class="mx-auto mb-10 w-40"
+              alt=""
+            />
+          </a>
+          <h1 class="mb-10 text-lg">کد تایید را وارد کنید</h1>
+          <form method="post">
+          {% csrf_token %}
+          <div class="mb-4 space-y-4">
+            <label for="username" class="relative block rounded-lg border shadow-base">
+              {{ form.code }}
+            </label>
+            <p class="h-5 text-sm text-red-500 dark:text-red-400">
+                {{ form.code.errors }}
+            </p>
+              {% if messages %}
+                {% for message in messages %}
+                  <p style="color: #e5e7eb">{{ message }}</p>
+                {% endfor %}
+              {% endif %}
+          </div>
+          <ul class="mb-8 space-y-4">
+            <li>
+              <p class="text-primary text-sm" id="countdownSection">
+                زمان باقی‌مانده تا ارسال مجدد
+                <span id="countdown" class="font-bold">02:00</span>
+              </p>
+              <button id="resendButton" onclick="resendOTP()" class="hidden" disabled>
+                <span>ارسال مجدد</span>
+              </button>
+            </li>
+            <li>
+              <a href="{% url 'account:login' %}" class="btn-primary-nobg text-sm w-fit">
+                <span>ورود با کلمه عبور </span>
+                <span>
+                  <svg class="h-5 w-5">
+                    <use xlink:href="#chevron-left" />
+                  </svg>
+                </span>
+              </a>
+            </li>
+          </ul>
+          <div>
+            <button id="verify-btn" class="btn-primary w-full py-3">
+              تایید
+            </button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script>
+    // تنظیمات تایمر برای ارسال مجدد کد، در اینجا 2 دقیقه تنظیم شده
+let countdownMinutes = 2;
+let countdownSeconds = 0;
+let countdownInterval;
+
+// به‌روزرسانی تایمر نمایش
+function updateCountdown() {
+    const countdownElement = document.getElementById("countdown");
+    countdownElement.textContent = `${countdownMinutes.toString().padStart(0, "5")}:${countdownSeconds
+        .toString()
+        .padStart(2, "5")}`;
+}
+
+// شروع شمارش معکوس تایمر
+function startCountdown() {
+    countdownInterval = setInterval(function () {
+        if (countdownMinutes === 0 && countdownSeconds === 0) {
+            clearInterval(countdownInterval);
+            document.getElementById("resendButton").classList.remove("hidden");
+            document.getElementById("resendButton").disabled = false;
+            document.getElementById("countdownSection").classList.add("hidden");
+        } else {
+            if (countdownSeconds === 0) {
+                countdownMinutes--;
+                countdownSeconds = 59;
+            } else {
+                countdownSeconds--;
+            }
+            updateCountdown();
+        }
+    }, 1000);
+}
+
+// تابع برای ارسال مجدد کد
+function resendOTP() {
+    // اگر تایمر هنوز تمام نشده، تابع را اجرا نکن
+    if (countdownMinutes !== 0 || countdownSeconds !== 0) return;
+
+    // ارسال درخواست AJAX برای ارسال مجدد کد
+    fetch("{% url 'account:resend_otp' %}", {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": "{{ csrf_token }}",
+            "Content-Type": "application/json",
+        },
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.success) {
+                // تنظیم مجدد تایمر
+                countdownMinutes = 2;
+                countdownSeconds = 0;
+                updateCountdown();
+                document.getElementById("resendButton").classList.add("hidden");
+                document.getElementById("resendButton").disabled = true;
+                document.getElementById("countdownSection").classList.remove("hidden");
+
+                // شروع تایمر جدید
+                startCountdown();
+            } else {
+                alert("خطا در ارسال مجدد کد.");
+            }
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+        });
+}
+
+// شروع تایمر وقتی صفحه بارگذاری می‌شود
+startCountdown();
+    </script>
+{% endblock %}

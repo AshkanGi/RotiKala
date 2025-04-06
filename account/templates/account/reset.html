@@ -1,0 +1,39 @@
+{% extends 'login-base.html' %}
+{% load static %}
+{% block main %}
+	<div class="flex min-h-screen items-center justify-center bg-background">
+      <div class="container">
+        <div class="mx-auto max-w-[450px] rounded-xl bg-muted p-5 shadow-base md:p-10">
+          <!-- Logo -->
+          <a href="{% url 'core:home' %}">
+            <img
+              src="{% static 'main/assets/images/logo.svg' %}"
+              class="mx-auto mb-10 w-40"
+              alt=""
+            />
+          </a>
+          <h1 class="mb-10 text-lg">* تغییر کلمه عبور *</h1>
+          <form method="post">
+          {% csrf_token %}
+          <div class="mb-4 space-y-4">
+              <p>کلمه عبور جدید</p>
+            <label for="password" class="relative block rounded-lg border shadow-base">
+              {{ form.password }}
+            </label>
+            <p class="h-5 text-sm text-red-500 dark:text-red-400"></p>
+          </div>
+          <div class="mb-4 space-y-4">
+              <p>تکرار کلمه عبور جدید</p>
+            <label for="confirm_password" class="relative block rounded-lg border shadow-base">
+              {{ form.confirm_password }}
+            </label>
+            <p class="h-5 text-sm text-red-500 dark:text-red-400">{{ form.non_field_errors }}</p>
+          </div>
+          <div>
+            <button class="btn-primary w-full py-3">تایید</button>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+{% endblock %}
