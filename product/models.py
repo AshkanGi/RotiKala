@@ -1,4 +1,5 @@
 import random
+from ckeditor_uploader.fields import RichTextUploadingField
 from slugify import slugify
 from django.db import models
 from account.models import User
@@ -78,7 +79,7 @@ class Product(models.Model):
     open_close = models.ManyToManyField(OpenClose, 'product', verbose_name='نحوه باز و بسته شدن')
     main_image = models.ImageField(upload_to='product/main', verbose_name='عکس اصلی')
     gallery_image = models.ManyToManyField(ProductGallery, related_name='product', verbose_name='گالری')
-    description = models.TextField(blank=True, null=True, verbose_name='توضیحات')
+    description = RichTextUploadingField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     slug = models.SlugField(unique=True, blank=True, null=True, allow_unicode=True)
@@ -127,4 +128,4 @@ class Comment(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        return f'{self.user.full_name} : {self.title}'
+        return f'{self.user.username} : {self.title}'

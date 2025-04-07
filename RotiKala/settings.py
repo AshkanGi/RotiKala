@@ -17,10 +17,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #my_app
     "core.apps.CoreConfig",
     "account.apps.AccountConfig",
     "user_profile.apps.UserProfileConfig",
-    "product.apps.ProductConfig"
+    "product.apps.ProductConfig",
+    #Install_App
+    'django.contrib.humanize',
+    'ckeditor',
+    'jalali_date',
 ]
 
 MIDDLEWARE = [
@@ -97,3 +102,37 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'Ashkanghodrati01@gmail.com'
 EMAIL_HOST_PASSWORD = 'ijfa sfip wwpz korz'
+
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_IMAGE_BACKEND = "pillow"
+CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'advanced',
+        'extraAllowedContent': 'img[!src,alt]{width,height}',
+        'allowedContent': True,
+        'extraPlugins': 'image2',
+        'removePlugins': 'resize',
+        'autoParagraph': False,
+    }
+}
+
+
+JALALI_DATE_DEFAULTS = {
+   'LIST_DISPLAY_AUTO_CONVERT': False,
+   'Strftime': {
+        'date': '%y/%m/%d',
+        'datetime': '%H:%M:%S _ %y/%m/%d',
+    },
+    'Static': {
+        'js': [
+            'admin/js/django_jalali.min.js',
+        ],
+        'css': {
+            'all': [
+                'admin/jquery.ui.datepicker.jalali/themes/base/jquery-ui.min.css',
+            ]
+        }
+    },
+}
