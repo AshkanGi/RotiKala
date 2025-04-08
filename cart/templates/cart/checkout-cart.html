@@ -1,0 +1,161 @@
+{% extends 'cart-base.html' %}
+{% load static %}
+{% load humanize %}
+{% block main %}
+	<main class="flex-grow bg-background pb-14 pt-36 xs:pt-36">
+        <div class="container pb-14">
+          <div class="grid grid-cols-12 gap-2 lg:gap-6">
+            <!-- breadCrumb -->
+            <div class="col-span-12 rounded-lg bg-muted">
+              <ol class="grid grid-cols-3 overflow-hidden rounded-lg">
+                <li class="flex flex-col items-center justify-center gap-2 bg-primary/10 p-4 text-xs text-primary /10 sm:text-sm md:text-base">
+                  <svg class="h-6 w-6 md:h-8 md:w-8">
+                    <use xlink:href="#cart" />
+                  </svg>
+                  <p class="leading-none">سبد خرید</p>
+                </li>
+                <li class="flex flex-col items-center justify-center gap-2 p-4 text-xs text-primary opacity-50 sm:text-sm md:text-base">
+                  <svg class="h-6 w-6 md:h-8 md:w-8">
+                    <use xlink:href="#delivery-truck" />
+                  </svg>
+                  <p class="leading-none">شیوه ارسال</p>
+                </li>
+                <li class="flex flex-col items-center justify-center gap-2 p-4 text-xs text-primary opacity-50 sm:text-sm md:text-base">
+                  <svg class="h-6 w-6 md:h-8 md:w-8">
+                    <use xlink:href="#credit" />
+                  </svg>
+                  <p class="leading-none">پرداخت</p>
+                </li>
+              </ol>
+            </div>
+            <!-- Cart List -->
+            <div class="col-span-12 md:col-span-8">
+              <div class="rounded-lg bg-muted p-4">
+                <!-- Heading -->
+                <div class="flex items-center justify-between gap-x-2 pb-4">
+                  <h1 class="flex items-center gap-x-4 text-sm xs:text-base md:text-lg">
+                    سبد خرید
+                  </h1>
+                  <a href="{% url 'cart:cart_clear' %}">
+                    <button type="button" class="btn-red-nobg px-3 py-2 text-sm">
+                      <span>
+                        <svg class="h-6 w-6">
+                          <use xlink:href="#trash"></use>
+                        </svg>
+                      </span>
+                      <span>حذف همه</span>
+                    </button>
+                  </a>
+                </div>
+                <ul class="divide-y">
+                  {% for item in cart %}
+                    <li>
+                    <div class="py-4 sm:py-6">
+                      <div class="grid grid-cols-2 items-center justify-start gap-2 xs:grid-cols-3 xs:gap-6 sm:grid-cols-4 xl:grid-cols-6">
+                        <!-- Image -->
+                        <div class="relative row-span-2 min-w-fit xs:mx-auto">
+                          <a href="#">
+                            <img
+                              alt=""
+                              class="w-25 rounded-lg sm:w-28"
+                              src="{{ item.product.main_image.url }}"
+                            />
+                          </a>
+                          <a href="{% url 'cart:remove_product' item.unique_id %}">
+                            <button class="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-background" type="button">
+                            <svg class="h-6 w-6 text-red-600 dark:text-red-500">
+                              <use xlink:href="#close"></use>
+                            </svg>
+                            </button>
+                          </a>
+                        </div>
+                        <!-- Detail -->
+                        <div class="row-span-2 space-y-4 xs:col-span-2 sm:col-span-3 xl:col-span-5">
+                          <!-- Title -->
+                          <a class="line-clamp-2 text-sm xs:text-base" href="#">
+                              {{ item.product.name }}
+                          </a>
+                          <!-- Variant -->
+                          <div class="flex items-center gap-x-2">
+                            <span class="text-xs text-text/90 xs:text-sm">
+                              سایز  {{ item.size }} - رنگ {{ item.color }}
+                            </span>
+                          </div>
+                        </div>
+                        <!-- Quantity -->
+                        <div class="flex items-center gap-x-2 xs:justify-center">
+                          <span class="text-xs text-text/90 xs:text-sm">
+                            {{ item.quantity }} عدد
+                          </span>
+                        </div>
+                        <!-- Price -->
+                        <div class="text-primary xs:col-span-2 sm:col-span-3 lg:text-lg xl:col-span-5">
+                          <span class="font-bold">{{ item.total|intcomma }}</span>
+                          <span class="text-sm lg:text-base">تومان</span>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  {% endfor %}
+                  <!-- Cart Item-->
+                </ul>
+              </div>
+            </div>
+            <!-- Cart Price Detail -->
+            <div class="col-span-12 md:col-span-4">
+              <!-- Desktop -->
+              <div class="hidden rounded-lg bg-muted p-4 md:block">
+                <div class="mb-2 divide-y">
+                  <!-- cart items price before discount - coupon -->
+                  <div class="flex items-center justify-between gap-x-2 py-6">
+                    <div class="text-sm text-text/90 lg:text-base">
+                      قیمت کالا ها ({{ cart.total_products }})
+                    </div>
+
+                    <div class="text-sm text-primary lg:text-base">
+                      <span class="font-bold">{{ cart.total_price|intcomma }}</span>
+                      <span class="text-xs lg:text-sm">تومان</span>
+                    </div>
+                  </div>
+
+                  <!-- Discount -->
+                  <div class="flex items-center justify-between gap-x-2 py-6">
+                    <div class="text-sm text-text/90 lg:text-base">تخفیف</div>
+
+                    <div
+                      class="text-sm font-medium text-red-500 dark:text-red-400 lg:text-base"
+                    >
+                      <span class="font-bold">0</span>
+                      <span class="text-xs lg:text-sm">تومان</span>
+                    </div>
+                  </div>
+                  <!-- Order final price -->
+
+                  <div class="flex items-center justify-between gap-x-2 py-6">
+                    <div class="text-sm text-text/90 lg:text-base">
+                      مبلغ قابل پرداخت
+                    </div>
+
+                    <div class="text-sm text-primary lg:text-base">
+                      <span class="font-bold">{{ cart.total_price|intcomma }}</span>
+                      <span class="text-xs lg:text-sm">تومان</span>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  {% if cart.total_products %}
+                  	<a href="{% url 'cart:cart_shipping' %}" class="btn-primary py-3">
+                    ادامه فرایند خرید
+                    </a>
+                  {% else %}
+                  	<span class="btn-primary py-3" style="background-color: lightgreen">
+                      ادامه فرایند خرید
+                    </span>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+{% endblock %}

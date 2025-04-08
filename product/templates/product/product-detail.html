@@ -207,7 +207,7 @@
                     </div>
                     <!-- left side -->
                     <div class="col-span-1 flex flex-col">
-                    <form method="post">
+                    <form action="{% url 'cart:add_product' product.id %}" method="post">
                     {% csrf_token %}
                       <div class="flex-grow">
                         <!-- variant -->

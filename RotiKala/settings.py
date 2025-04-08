@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     "account.apps.AccountConfig",
     "user_profile.apps.UserProfileConfig",
     "product.apps.ProductConfig",
+    "cart.apps.CartConfig",
     #Install_App
     'django.contrib.humanize',
     'ckeditor',
