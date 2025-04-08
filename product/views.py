@@ -14,7 +14,11 @@ class ProductView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = CommentCreatForm()
+        product = self.get_object()
         #context['cart'] = Cart(self.request)
+        product_categories = product.category.all()
+        related_products = Product.objects.filter(category__in=product_categories).exclude(id=product.id).distinct()
+        context['related_products'] = related_products
         return context
 
     def post(self, request, *args, **kwargs):

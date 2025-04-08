@@ -168,11 +168,11 @@
                       <!-- comments & SKU -->
                       <div class="mb-4 flex items-center gap-x-4 text-sm font-light text-primary">
                         <div>
-                          <a href="#"> کد کالا 6457# </a>
+                          <a href="#"> کد کالا {{ product.id }}# </a>
                         </div>
                         <span class="h-4 w-px rounded-full bg-background dark:bg-muted/10"></span>
                         <div>
-                          <a href="#"> 20 دیدگاه </a>
+                          <a href="#"> {{ product.comments.count }} دیدگاه </a>
                         </div>
                       </div>
                       <!-- users suggestion -->
@@ -272,9 +272,7 @@
                         </div>
                         <!-- price -->
                         <div class="mb-6 flex items-center justify-between">
-                          <div
-                            class="flex h-12 w-32 items-center justify-between rounded-lg border px-4 py-1"
-                          >
+                          <div class="flex h-12 w-32 items-center justify-between rounded-lg border px-4 py-1">
                             <button type="button" data-action="increment">
                               <svg class="h-6 w-6 text-primary">
                                 <use xlink:href="#plus" />
@@ -287,9 +285,7 @@
                               class="flex h-6 w-6 w-full select-none items-center justify-center bg-transparent text-center outline-none"
                             />
                             <button type="button" data-action="decrement">
-                              <svg
-                                class="h-6 w-6 text-red-600 dark:text-red-500"
-                              >
+                              <svg class="h-6 w-6 text-red-600 dark:text-red-500">
                                 <use xlink:href="#minus" />
                               </svg>
                             </button>
@@ -371,97 +367,59 @@
                 <h3 class="font-medium md:text-lg lg:text-xl">کالاهای مرتبط</h3>
               </div>
               <!-- Section Content -->
+              {% for item in related_products %}
               <div class="swiper product-slider p-px">
                 <div class="swiper-wrapper">
-                  <div class="swiper-slide">
+                    <div class="swiper-slide">
                     <!-- Product Card -->
                     <div class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
                       <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
                         <!-- image -->
                         <div class="mb-2 md:mb-5" draggable="false">
-                          <a href="./product-detail.html">
+                          <a href="{% url 'ProductApp:product_detail' slug=item.slug %}">
                             <img
                               alt=""
                               class="mx-auto w-32 rounded-lg md:w-auto"
-                              src="{% static 'main/assets/images/products/p8.png' %}"
+                              src="{{ item.main_image.url }}"
                             />
                           </a>
                         </div>
                         <!-- title -->
                         <div class="mb-2">
-                          <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base" href="./product-detail.html">
-                            کیف دوشی زنانه درسا مدل 49787
+                          <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base" href="{% url 'ProductApp:product_detail' slug=item.slug %}">
+                            {{ item.name }}
                           </a>
                         </div>
                         <!-- Prices -->
+                        {% if item.discount_percentage %}
                         <div class="flex flex-col">
                           <!-- Old price -->
                           <div class="h-5 text-left">
                             <del class="text-sm text-text/60 decoration-warning md:text-base">
-                              10,000,000
+                              {{ item.price|intcomma }}
                             </del>
                           </div>
                           <div class="flex items-center justify-between">
                             <div>
                               <p class="w-9 rounded-full bg-warning py-px text-center text-sm text-white">
-                                60%
+                                {{ item.discount_percentage }}%
                               </p>
                             </div>
                             <!-- New price -->
                             <div class="text-sm font-bold text-primary md:text-base">
-                              4,000,000
+                                {{ item.discounted_price|intcomma }}
                               <span class="text-xs font-light md:text-sm">
                                   تومان
                               </span>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <!-- Product Card -->
-                    <div class="border-gradient group relative rounded-base p-px before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-base">
-                      <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
-                        <!-- image -->
-                        <div class="mb-2 md:mb-5" draggable="false">
-                          <a href="./product-detail.html">
-                            <img
-                              alt=""
-                              class="mx-auto w-32 rounded-lg md:w-auto"
-                              src="{% static 'main/assets/images/products/p1.png' %}"
-                            />
-                          </a>
-                        </div>
-                        <!-- title -->
-                        <div class="mb-2">
-                          <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base" href="./product-detail.html">
-                            کفش پیاده روی مردانه نیو بالانس مدل M520LN7
-                          </a>
-                        </div>
-                        <!-- Prices -->
-                        <div class="flex flex-col">
-                          <!-- Old price -->
-                          <div class="h-5 text-left">
-                            <del class="text-sm text-text/60 decoration-warning md:text-base">
-                              10,000,000
-                            </del>
+                        {% else %}
+                          <div class="flex items-center gap-x-1 text-primary">
+                            <span class="text-xl font-bold">{{ product.price|intcomma }}</span>
+                            <span>تومان</span>
                           </div>
-                          <div class="flex items-center justify-between">
-                            <div>
-                              <p class="w-9 rounded-full bg-warning py-px text-center text-sm text-white">
-                                50%
-                              </p>
-                            </div>
-                            <!-- New price -->
-                            <div class="text-sm font-bold text-primary md:text-base">
-                              5,000,000
-                              <span class="text-xs font-light md:text-sm">
-                                تومان
-                              </span>
-                            </div>
-                          </div>
-                        </div>
+                        {% endif %}
                       </div>
                     </div>
                   </div>
@@ -469,6 +427,7 @@
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>
               </div>
+              {% endfor %}
             </div>
           </div>
           <!-- description / specs / commment  -->
@@ -489,7 +448,7 @@
                   <a href="#comments" class="relative inline-block rounded-t-lg border-b-2 border-transparent px-2 pb-2 hover: text-text/90 dark:hover:text-zinc-300">
                     دیدگاه ها
                     <span class="absolute -left-5 -top-4 flex h-7 w-7 items-center justify-center rounded-full bg-primary text-xs text-white dark:bg-emerald-600 xs:text-sm">
-                      2
+                      {{ product.comments.count }}
                     </span>
                   </a>
                 </li>
