@@ -1,26 +1,22 @@
 # RotiKala 🛍️
 
-**RotiKala** is a scalable and modular e-commerce backend built with Django. The project focuses on clean architecture, practical features, and maintainable code—ideal for growing e-commerce applications.
+**RotiKala** is a simple and scalable online store backend built with Django.  
+It provides all the core features needed to manage a product-based shop, including product listings, categories, cart handling, and user authentication.
 
-## 🚀 Features
 
-- **Product Management**  
-  Add, update, and categorize products with rich attribute support (size, color, materials, etc.)
+🚀 Overview
 
-- **Category System**  
-  Hierarchical category structure using `ManyToMany` and `ForeignKey` relationships.
+RotiKala is designed for developers who want a clean and extensible Django-based project for online product sales.  
+The frontend template is ready, and the backend supports dynamic product management and customer interactions.
 
-- **User Authentication**  
-  Includes login, registration, and user profile support.
 
-- **Commenting System**  
-  Users can leave reviews with a title, description, and recommendation toggle.
+⚙️ Features
 
-- **Shopping Cart**  
-  Session-based cart logic, supports add/remove/edit operations.
-
-- **Shipping & Address Form**  
-  Dynamic shipping form with validation and user-specific saving.
-
-- **Admin Panel**  
-  Leverages Django’s admin with custom model display and filtering.
+- Product listing with support for multiple categories
+- Detailed product pages with dynamic attributes (color, size, etc.)
+- Image gallery and main image support
+- Discount handling and price formatting
+- Product commenting and review system
+- Related product suggestions
+- Shopping cart functionality
+- User authentication and address management
