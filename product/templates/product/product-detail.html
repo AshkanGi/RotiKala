@@ -376,7 +376,7 @@
                       <div class="relative rounded-xl bg-muted p-2 shadow-base md:p-5">
                         <!-- image -->
                         <div class="mb-2 md:mb-5" draggable="false">
-                          <a href="{% url 'ProductApp:product_detail' slug=item.slug %}">
+                          <a href="{% url 'product:product_detail' slug=item.slug %}">
                             <img
                               alt=""
                               class="mx-auto w-32 rounded-lg md:w-auto"
@@ -386,7 +386,7 @@
                         </div>
                         <!-- title -->
                         <div class="mb-2">
-                          <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base" href="{% url 'ProductApp:product_detail' slug=item.slug %}">
+                          <a class="line-clamp-2 h-10 text-sm md:h-12 md:text-base" href="{% url 'product:product_detail' slug=item.slug %}">
                             {{ item.name }}
                           </a>
                         </div>

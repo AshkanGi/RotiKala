@@ -8,6 +8,7 @@ class Order(models.Model):
     total_price = models.PositiveSmallIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     is_paid = models.BooleanField(default=False)
+    discount_applied = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username

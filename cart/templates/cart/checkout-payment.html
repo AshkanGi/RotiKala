@@ -40,10 +40,9 @@
             <div class="mb-6">
               <!-- Coupon -->
               <form  method="post" action="{% url 'cart:discount' order.id %}">
+              {% csrf_token %}
               <div class="mb-4 flex items-center justify-between gap-x-2">
                 <div class="flex w-full items-center justify-between gap-x-2 rounded-lg border pl-4">
-
-                  {% csrf_token %}
                   <label for="coupon" class="relative block w-full rounded-lg shadow-base">
                     <input
                       type="text"
@@ -80,15 +79,11 @@
               <!-- delivery price -->
               <div class="flex items-center justify-between gap-x-2 py-6">
                 <div class="text-sm text-text/90 lg:text-base">تخفیف</div>
-
-                <div
-                  class="text-sm font-medium text-red-500 dark:text-red-400 lg:text-base"
-                >
+                <div class="text-sm font-medium text-red-500 dark:text-red-400 lg:text-base">
                   <span class="font-bold">0</span>
                   <span class="text-xs lg:text-sm">تومان</span>
                 </div>
               </div>
-
               <!-- Order final price -->
               <div class="flex items-center justify-between gap-x-2 py-6">
                 <div class="text-sm text-text/90 lg:text-base">
@@ -100,13 +95,9 @@
                 </div>
               </div>
               <!-- Payment gateway -->
-
-              <fieldset
-                class="flex flex-wrap items-center justify-evenly gap-4 space-y-2"
-              >
+              <fieldset class="flex flex-wrap items-center justify-evenly gap-4 space-y-2">
                 <legend class="sr-only">Gateway</legend>
                 <!-- gateway item -->
-
                 <div>
                   <input
                     type="radio"
@@ -115,14 +106,10 @@
                     id="gateway-1"
                     class="peer hidden"
                   />
-
-                  <label
-                    for="gateway-1"
-                    class="relative block cursor-pointer rounded-lg border p-4 shadow-base peer-checked:border-emerald-500 hover:border-border/50 peer-checked:dark:border-emerald-400 dark:hover:border-white/10"
-                  >
+                  <label for="gateway-1" class="relative block cursor-pointer rounded-lg border p-4 shadow-base peer-checked:border-emerald-500 hover:border-border/50 peer-checked:dark:border-emerald-400 dark:hover:border-white/10">
                     <div class="flex items-center gap-x-4">
                       <img
-                        src="{% static 'assets/images/others/zarinpal.png' %}"
+                        src="{% static 'main/assets/images/others/zarinpal.png' %}"
                         class="w-8 rounded-lg"
                         alt=""
                       />
@@ -130,7 +117,6 @@
                     </div>
                   </label>
                 </div>
-
                 <div>
                   <input
                     type="radio"
@@ -139,14 +125,10 @@
                     id="gateway-2"
                     class="peer hidden"
                   />
-
-                  <label
-                    for="gateway-2"
-                    class="relative block cursor-pointer rounded-lg border p-4 shadow-base peer-checked:border-emerald-500 hover:border-border/50 peer-checked:dark:border-emerald-400 dark:hover:border-white/10"
-                  >
+                  <label for="gateway-2" class="relative block cursor-pointer rounded-lg border p-4 shadow-base peer-checked:border-emerald-500 hover:border-border/50 peer-checked:dark:border-emerald-400 dark:hover:border-white/10">
                     <div class="flex items-center gap-x-4">
                       <img
-                        src="{% static 'assets/images/others/saman.png' %}"
+                        src="{% static 'main/assets/images/others/saman.png' %}"
                         class="w-8 rounded-lg"
                         alt=""
                       />
@@ -166,15 +148,6 @@
                 <span class="btn-primary py-3" style="background-color: lightgreen"> پرداخت </span>
               {% endif %}
             </div>
-          <div>
-              {% if message %}
-                  {% for message in messages %}
-                      <p class="h-5 text-sm text-red-500 dark:text-red-400">
-                          {{ message }}
-                      </p>
-                  {% endfor %}
-              {% endif %}
-          </div>
           </div>
         </div>
       </main>
