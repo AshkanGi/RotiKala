@@ -1,9 +1,9 @@
+from django.views import View
 from django.contrib import messages
 from .forms import CommentCreatForm
-from .models import Product, Comment
-#from cart.cart_module import Cart
-from django.shortcuts import redirect
+from .models import Product, Comment, Like
 from django.views.generic import DetailView
+from django.shortcuts import redirect, get_object_or_404
 
 
 class ProductView(DetailView):
@@ -15,7 +15,6 @@ class ProductView(DetailView):
         context = super().get_context_data(**kwargs)
         context['form'] = CommentCreatForm()
         product = self.get_object()
-        #context['cart'] = Cart(self.request)
         product_categories = product.category.all()
         related_products = Product.objects.filter(category__in=product_categories).exclude(id=product.id).distinct()
         context['related_products'] = related_products
@@ -33,12 +32,24 @@ class ProductView(DetailView):
                 comment.title = cd['title']
                 comment.body = cd['body']
                 recommend_value = request.POST.get('recommend')
-                if recommend_value is not None:
+                if recommend_value:
                     comment.is_recommended = bool(int(recommend_value))
                 else:
                     comment.is_recommended = False
                 comment.save()
-                return redirect('ProductApp:product_detail', slug=product.slug)
+                return redirect('product:product_detail', slug=product.slug)
             messages.error(request, 'اطلاعات وارد شده مناسب  نیست , لطفا مجدد تلاش کنید.')
-        messages.error(request, 'برای ثبت نظر باید وارد اکانت خودتان شوید.')
+        messages.error(request, 'برای ثبت نظر باید وارد حساب کاربری خودتان شوید.')
         return self.get(request, *args, **kwargs)
+
+
+class LikeView(View):
+    def get(self, request, slug):
+        if not request.user.is_authenticated:
+            messages.error(request, 'برای لایک کردن باید وارد شوید.')
+            return redirect('product:product_detail', slug=slug)
+        product = get_object_or_404(Product, slug=slug)
+        like, created = Like.objects.get_or_create(product=product, user=request.user)
+        if not created:
+            like.delete()
+        return redirect('product:product_detail', slug=slug)

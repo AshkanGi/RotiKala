@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Product, Size, Color, ProductGallery, TopMaterial, SoleMaterial, InsoleModel, OpenClose, Comment, Category
+from .models import Product, Size, Color, ProductGallery, TopMaterial, SoleMaterial, InsoleModel, OpenClose, Comment, \
+    Category, Like
 
 
 @admin.register(Product)
@@ -53,3 +54,4 @@ class ProductGalleryAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Comment)
+admin.site.register(Like)
