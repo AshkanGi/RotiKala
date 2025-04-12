@@ -29,14 +29,15 @@ class ProductView(DetailView):
                 comment = Comment()
                 comment.user = request.user
                 comment.product = product
-                comment.title = cd['title']
-                comment.body = cd['body']
+                comment.title = cd.get('title')
+                comment.body = cd.get('body')
                 recommend_value = request.POST.get('recommend')
                 if recommend_value:
                     comment.is_recommended = bool(int(recommend_value))
                 else:
                     comment.is_recommended = False
                 comment.save()
+                messages.success(request, 'نظر شما با موفقیت ثبت شد، ممنونیم 🌟')
                 return redirect('product:product_detail', slug=product.slug)
             messages.error(request, 'اطلاعات وارد شده مناسب  نیست , لطفا مجدد تلاش کنید.')
         messages.error(request, 'برای ثبت نظر باید وارد حساب کاربری خودتان شوید.')
@@ -44,9 +45,9 @@ class ProductView(DetailView):
 
 
 class LikeView(View):
-    def get(self, request, slug):
+    def post(self, request, slug):
         if not request.user.is_authenticated:
-            messages.error(request, 'برای لایک کردن باید وارد شوید.')
+            messages.error(request, 'برای لایک کردن باید وارد حساب کاربری شوید.')
             return redirect('product:product_detail', slug=slug)
         product = get_object_or_404(Product, slug=slug)
         like, created = Like.objects.get_or_create(product=product, user=request.user)

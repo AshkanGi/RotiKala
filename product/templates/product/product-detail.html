@@ -39,8 +39,9 @@
                       <div class="flex items-center gap-x-4">
                         <!-- add to favorite -->
                         <div>
-                        <a href="{% url 'product:product_like' product.slug %}">
-                          <button data-tooltip-target="add-to-favorite" type="button">
+                        <form method="post" action="{% url 'product:product_like' product.slug %}">
+                        {% csrf_token %}
+                          <button data-tooltip-target="add-to-favorite" type="submit">
                               {% if product.likes.last %}
                               	<svg class="h-6 w-6 text-red-500">
                                   <use xlink:href="#heart" />
@@ -51,7 +52,7 @@
                                 </svg>
                               {% endif %}
                           </button>
-                        </a>
+                        </form>
                           <div
                             id="add-to-favorite"
                             role="tooltip"
