@@ -189,17 +189,29 @@
                         <ul class="space-y-4">
                           <li class="flex gap-x-2">
                             <div class="min-w-fit text-text/60">جنس :</div>
-                            <div class="text-text/90">{{ product.top_material.last }}</div>
+                            {% for attr in product.attributes.all %}
+                                {% if attr.attribute_value.attribute.name == "جنس" %}
+                                    <div class="text-text/90">{{ attr.attribute_value.value }}</div>
+                                {% endif %}
+                            {% endfor %}
                           </li>
                           <li class="flex gap-x-2">
                             <div class="min-w-fit text-text/60">جنس زیره :</div>
-                            <div class="text-text/90">{{ product.sole_material.last }}</div>
+                            {% for attr in product.attributes.all %}
+                                {% if attr.attribute_value.attribute.name == "جنس زیره" %}
+                                    <div class="text-text/90">{{ attr.attribute_value.value }}</div>
+                                {% endif %}
+                            {% endfor %}
                           </li>
                           <li class="flex gap-x-2">
                             <div class="min-w-fit text-text/60">
                               نحوه بسته شدن کفش :
                             </div>
-                            <div class="text-text/90">{{ product.open_close.last }}</div>
+                            {% for attr in product.attributes.all %}
+                                {% if attr.attribute_value.attribute.name == "نحوه باز و بسته شدن" %}
+                                    <div class="text-text/90">{{ attr.attribute_value.value }}</div>
+                                {% endif %}
+                            {% endfor %}
                           </li>
                         </ul>
                       </div>
@@ -215,24 +227,27 @@
                           <div>
                             <div class="mb-4">انتخاب رنگ</div>
                             <fieldset class="flex flex-wrap items-center gap-4">
-                              <legend class="sr-only">Color</legend>
-                              {% for color in product.color.all %}
-                                <div>
-                                <input
-                                  checked
-                                  type="radio"
-                                  name="color"
-                                  value="{{ color }}"
-                                  id="{{ color }}"
-                                  class="peer hidden"
-                                />
-                                <label for="{{ color }}" class="relative block cursor-pointer rounded-full border-2 p-4 shadow-base peer-checked:border-emerald-500 hover:border-border/50 peer-checked:dark:border-emerald-400 dark:hover:border-white/10">
-                                  <div class="flex items-center gap-x-8">
-                                    <p class="text-text/90">{{ color }}</p>
+                            <legend class="sr-only">Color</legend>
+                            {% for attr in product.attributes.all %}
+                              {% if attr.attribute_value.attribute.name == "رنگ" %}
+                                {% with color=attr.attribute_value.value %}
+                                  <div>
+                                    <input
+                                      type="radio"
+                                      name="color"
+                                      value="{{ color }}"
+                                      id="{{ color }}"
+                                      class="peer hidden"
+                                    />
+                                      <label for="{{ color }}" class="relative block cursor-pointer rounded-full border-2 p-4 shadow-base peer-checked:border-emerald-500 hover:border-border/50 peer-checked:dark:border-emerald-400 dark:hover:border-white/10">
+                                        <div class="flex items-center gap-x-8">
+                                          <p class="text-text/90">{{ color }}</p>
+                                        </div>
+                                      </label>
                                   </div>
-                                </label>
-                              </div>
-                              {% endfor %}
+                                {% endwith %}
+                              {% endif %}
+                            {% endfor %}
                             </fieldset>
                           </div>
                           <!-- Size -->
@@ -240,22 +255,25 @@
                             <div class="mb-4">انتخاب سایز</div>
                             <fieldset class="flex flex-wrap items-center gap-2">
                               <legend class="sr-only">Size</legend>
-                                {% for size in product.size.all %}
-                                   <div>
-                                <input
-                                  checked
-                                  type="radio"
-                                  name="size"
-                                  value="{{ size }}"
-                                  id="{{ size }}"
-                                  class="peer hidden"
-                                />
-                                <label for="{{ size }}" class="relative flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border-2 p-1 shadow-base peer-checked:border-emerald-500 hover:border-border/50 peer-checked:dark:border-emerald-400 dark:hover:border-white/10">
-                                  <p class="text-sm font-bold text-text/90 md:text-base">
-                                      {{ size }}
-                                  </p>
-                                </label>
-                              </div>
+                                {% for attr in product.attributes.all %}
+                                  {% if attr.attribute_value.attribute.name == "سایز" %}
+                                    {% with size=attr.attribute_value.value %}
+                                      <div>
+                                        <input
+                                          type="radio"
+                                          name="size"
+                                          value="{{ size }}"
+                                          id="{{ size }}"
+                                          class="peer hidden"
+                                        />
+                                          <label for="{{ size }}" class="relative flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border-2 p-1 shadow-base peer-checked:border-emerald-500 hover:border-border/50 peer-checked:dark:border-emerald-400 dark:hover:border-white/10">
+                                            <p class="text-sm font-bold text-text/90 md:text-base">
+                                                {{ size }}
+                                            </p>
+                                          </label>
+                                      </div>
+                                    {% endwith %}
+                                  {% endif %}
                                 {% endfor %}
                             </fieldset>
                           </div>
@@ -497,10 +515,14 @@
                 <div class="mb-6 max-h-[500px] overflow-hidden md:mb-10" id="specsContainer">
                   <ul class="space-y-6 text-sm">
                     <li class="grid grid-cols-3 gap-x-2 lg:grid-cols-5">
-                      <div class="col-span-1 text-text/60">جنس رویه</div>
+                      <div class="col-span-1 text-text/60">جنس</div>
                       <div class="col-span-2 border-b pb-4 text-text/90 lg:col-span-4">
                         <ul class="space-y-4">
-                          <li>{{ product.top_material.last }}</li>
+                          {% for attr in product.attributes.all %}
+                            {% if attr.attribute_value.attribute.name == "جنس" %}
+                              <div class="text-text/90">{{ attr.attribute_value.value }}</div>
+                            {% endif %}
+                          {% endfor %}
                         </ul>
                       </div>
                     </li>
@@ -508,7 +530,11 @@
                       <div class="col-span-1 text-text/60">جنس زیره</div>
                       <div class="col-span-2 border-b pb-4 text-text/90 lg:col-span-4">
                         <ul class="space-y-4">
-                          <li>{{ product.sole_material.last }}</li>
+                          {% for attr in product.attributes.all %}
+                            {% if attr.attribute_value.attribute.name == "جنس زیره" %}
+                              <div class="text-text/90">{{ attr.attribute_value.value }}</div>
+                            {% endif %}
+                          {% endfor %}
                         </ul>
                       </div>
                     </li>
@@ -518,7 +544,11 @@
                       </div>
                       <div class="col-span-2 border-b pb-4 text-text/90 lg:col-span-4">
                         <ul class="space-y-4">
-                          <li>{{ product.open_close.last }}</li>
+                          {% for attr in product.attributes.all %}
+                            {% if attr.attribute_value.attribute.name == "نحوه باز و بسته شدن" %}
+                              <div class="text-text/90">{{ attr.attribute_value.value }}</div>
+                            {% endif %}
+                          {% endfor %}
                         </ul>
                       </div>
                     </li>
@@ -528,7 +558,11 @@
                       </div>
                       <div class="col-span-2 border-b pb-4 text-text/90 lg:col-span-4">
                         <ul class="space-y-4">
-                          <li>{{ product.insole_model.last}}</li>
+                          {% for attr in product.attributes.all %}
+                            {% if attr.attribute_value.attribute.name == "نوع کفی" %}
+                              <div class="text-text/90">{{ attr.attribute_value.value }}</div>
+                            {% endif %}
+                          {% endfor %}
                         </ul>
                       </div>
                     </li>
@@ -538,11 +572,19 @@
                       </div>
                       <div class="col-span-2 border-b pb-4 text-text/90 lg:col-span-4">
                         <ul class="space-y-4">
-                          {% if product.air_circulation %}
-                            <li><p>✅</p></li>
-                            {% else %}
-                            <li><p>❌</p></li>
+                          {% for bool_attr in product.boolean_attributes.all %}
+                            {% if bool_attr.attribute.name == "گردش هوا" %}
+                              <li>
+                                <p>
+                                  {% if bool_attr.value %}
+                                    ✅
+                                  {% else %}
+                                    ❌
+                                  {% endif %}
+                                </p>
+                              </li>
                             {% endif %}
+                          {% endfor %}
                         </ul>
                       </div>
                     </li>
@@ -550,11 +592,19 @@
                       <div class="col-span-1 text-text/60">مقاوم در برابر نفوذ آب ( ضد آب ) </div>
                       <div class="col-span-2 border-b pb-4 text-text/90 lg:col-span-4">
                         <ul class="space-y-4">
-                          {% if product.waterproof %}
-                            <li><p>✅</p></li>
-                            {% else %}
-                            <li><p>❌</p></li>
+                          {% for bool_attr in product.boolean_attributes.all %}
+                            {% if bool_attr.attribute.name == "ضد آب" %}
+                              <li>
+                                <p>
+                                  {% if bool_attr.value %}
+                                    ✅
+                                  {% else %}
+                                    ❌
+                                  {% endif %}
+                                </p>
+                              </li>
                             {% endif %}
+                          {% endfor %}
                         </ul>
                       </div>
                     </li>
@@ -562,11 +612,19 @@
                       <div class="col-span-1 text-text/60"> کپسول فعال در قسمت پاشنه </div>
                       <div class="col-span-2 border-b pb-4 text-text/90 lg:col-span-4">
                         <ul class="space-y-4">
-                          {% if product.capsule_in_heel %}
-                            <li><p>✅</p></li>
-                            {% else %}
-                            <li><p>❌</p></li>
+                          {% for bool_attr in product.boolean_attributes.all %}
+                            {% if bool_attr.attribute.name == "کپسول پاشنه" %}
+                              <li>
+                                <p>
+                                  {% if bool_attr.value %}
+                                    ✅
+                                  {% else %}
+                                    ❌
+                                  {% endif %}
+                                </p>
+                              </li>
                             {% endif %}
+                          {% endfor %}
                         </ul>
                       </div>
                     </li>
@@ -574,11 +632,19 @@
                       <div class="col-span-1 text-text/60"> کپسول فعال در قسمت پنجه </div>
                       <div class="col-span-2 border-b pb-4 text-text/90 lg:col-span-4">
                         <ul class="space-y-4">
-                          {% if product.capsule_in_claw %}
-                            <li><p>✅</p></li>
-                            {% else %}
-                            <li><p>❌</p></li>
+                          {% for bool_attr in product.boolean_attributes.all %}
+                            {% if bool_attr.attribute.name == "کپسول پنجه" %}
+                              <li>
+                                <p>
+                                  {% if bool_attr.value %}
+                                    ✅
+                                  {% else %}
+                                    ❌
+                                  {% endif %}
+                                </p>
+                              </li>
                             {% endif %}
+                          {% endfor %}
                         </ul>
                       </div>
                     </li>
@@ -700,7 +766,7 @@
                     <!-- Comments -->
                     <div class="order-first col-span-12 mb-10 max-h-[500px] overflow-hidden md:order-last md:col-span-8 lg:col-span-9" id="commentsContainer">
                       <!-- Desktop Comments -->
-                      <div class="order-first col-span-12 mb-10 max-h-[500px] overflow-hidden md:order-last md:col-span-8 lg:col-span-9" id="commentsContainer">
+                      <div class="order-first col-span-12 mb-10 md:order-last md:col-span-8 lg:col-span-9" id="commentsContainer">
                       <!-- Desktop Comments -->
                       <div class="hidden md:block">
                         <ul class="mb-8 space-y-4 divide-y divide-gray-200 dark:divide-white/10">

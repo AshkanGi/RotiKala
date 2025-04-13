@@ -1,9 +1,10 @@
 from django.contrib import admin
-from .models import Product, ProductGallery, Attribute, AttributeValue, Category, ProductAttribute, Comment, Like
+from .models import (Product, ProductGallery, Attribute, AttributeValue, Category, ProductAttribute,
+                     ProductBooleanAttribute, BooleanAttribute, Comment, Like)
 
 
 class ProductGalleryInline(admin.TabularInline):
-    model = Product.gallery_image.through
+    model = ProductGallery
     extra = 1
     verbose_name = "تصویر گالری"
     verbose_name_plural = "تصاویر گالری"
@@ -16,18 +17,35 @@ class ProductAttributeInline(admin.TabularInline):
     verbose_name_plural = "ویژگی‌ها"
 
 
+class ProductBooleanAttributeInline(admin.TabularInline):
+    model = ProductBooleanAttribute
+    extra = 1
+    verbose_name = "ویژگی"
+    verbose_name_plural = "ویژگی‌ها"
+
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'price', 'discount_percentage', 'discounted_price', 'created_at']
+    list_display = ['name', 'slug', 'price', 'discount_percentage', 'get_discounted_price', 'created_at', 'update_at']
     search_fields = ['name', 'slug']
-    list_filter = ['category', 'created_at']
-    prepopulated_fields = {"slug": ("name",)}
-    inlines = [ProductGalleryInline, ProductAttributeInline]
-    filter_horizontal = ('category', 'gallery_image')
+    list_filter = ['category', 'created_at', 'discount_percentage']
+    exclude = ('slug',)
+    inlines = [ProductGalleryInline, ProductAttributeInline, ProductBooleanAttributeInline]
+    filter_horizontal = ('category',)
+
+    def get_discounted_price(self, obj):
+        return obj.discounted_price
+    get_discounted_price.short_description = "قیمت با تخفیف"
 
 
 @admin.register(Attribute)
 class AttributeAdmin(admin.ModelAdmin):
+    list_display = ['name']
+    search_fields = ['name']
+
+
+@admin.register(BooleanAttribute)
+class BooleanAttributeAdmin(admin.ModelAdmin):
     list_display = ['name']
     search_fields = ['name']
 
@@ -52,5 +70,14 @@ class ProductGalleryAdmin(admin.ModelAdmin):
     search_fields = ['alt_text']
 
 
-admin.site.register(Comment)
-admin.site.register(Like)
+@admin.register(Like)
+class LikeAdmin(admin.ModelAdmin):
+    list_display = ['user', 'product', 'create_at']
+    search_fields = ['user', 'product']
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['user', 'product', 'title', 'is_recommended', 'created_at']
+    search_fields = ['user', 'product']
+    list_filter = ['is_recommended']
