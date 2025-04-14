@@ -27,7 +27,7 @@ class CartAdd(View):
         quantity = request.POST.get('quantity')
         if not size or not color or not quantity:
             messages.error(request, "لطفاً همه گزینه‌ها را انتخاب کنید.")
-            return redirect(reverse('product:product_detail', args=[product.slug]))
+            return redirect('product:product_detail', product.slug)
         try:
             quantity = int(quantity)
             if quantity <= 0:
@@ -36,7 +36,6 @@ class CartAdd(View):
             messages.error(request, "تعداد وارد شده معتبر نیست.")
             return redirect(reverse('product:product_detail', args=[product.slug]))
         cart.add(product=product, quantity=quantity, color=color, size=size)
-        messages.success(request, "محصول به سبد خرید اضافه شد.")
         return redirect('cart:cart_detail')
 
 
@@ -59,6 +58,9 @@ class CartShipping(LoginRequiredMixin, View):
 
     def get(self, request):
         cart = Cart(request)
+        if cart.total_products == 0:
+            messages.error(request, "سبد خرید شما خالی است.")
+            return redirect('cart:cart_detail')
         form = AddAddressForm()
         return render(request, 'cart/checkout-shipping.html', {'cart': cart, 'form': form})
 
@@ -87,11 +89,13 @@ class CartPayment(LoginRequiredMixin, View):
 
     def get(self, request, pk):
         cart = Cart(request)
-        order = get_object_or_404(Order, id=pk)
+        order = get_object_or_404(Order, id=pk, user=request.user)
         return render(request, 'cart/checkout-payment.html', {'cart': cart, 'order': order})
 
 
-class OrderCreation(View):
+class OrderCreation(LoginRequiredMixin, View):
+    login_url = 'account:check-username'
+
     def get(self, request):
         cart = Cart(request)
         if cart.total_products == 0:
@@ -112,10 +116,12 @@ class OrderCreation(View):
         return redirect('cart:cart_payment', order.id)
 
 
-class ApplyDiscount(View):
+class ApplyDiscount(LoginRequiredMixin, View):
+    login_url = 'account:check-username'
+
     def post(self, request, pk):
         code = request.POST.get('discount')
-        order = get_object_or_404(Order, id=pk)
+        order = get_object_or_404(Order, id=pk, user=request.user)
         if order.discount_applied:
             messages.warning(request, "کد تخفیف قبلاً اعمال شده.")
             return redirect('cart:cart_payment', order.id)
