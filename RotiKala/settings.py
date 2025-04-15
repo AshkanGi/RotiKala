@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'ckeditor',
     'jalali_date',
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [
