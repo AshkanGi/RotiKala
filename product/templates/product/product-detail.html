@@ -2,6 +2,9 @@
 {% load static %}
 {% load humanize %}
 {% load jalali_tags %}
+{% block title %}
+	{{ product.name }}
+{% endblock %}
 {% block contact %}
 	<main class="flex-grow bg-background pb-14 pt-36 xs:pt-36">
       <div class="container">
